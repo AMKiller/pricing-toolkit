@@ -1,0 +1,18 @@
+# Dataset-independent settings. Nothing in the shared code should hard-code these.
+
+# Grouping levels, broad to narrow. Adapters must supply these columns.
+# For FARO this may become e.g. [brand_tier, product_type, brand].
+groups: [brand_tier, product_type, brand]
+
+# Which of the groups to compare lots within when checking discount spread.
+audit_groups: [brand_tier, product_type]
+
+audit:
+  # Rules of thumb from the project plan; adjust once real numbers are seen.
+  min_items_per_group: 30        # "a few dozen comparable lots per group"
+  min_discount_range: 0.15       # 5th-95th percentile spread of opening discount (15 points)
+  flat_discount_range: 0.05      # below this the discount is effectively flat
+
+simulator:
+  reference_discount: 0.60       # discount at which base demand is defined
+  weekly_decay: 0.88             # demand fades ~12% per week as an item ages
